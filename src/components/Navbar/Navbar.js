@@ -6,17 +6,22 @@ import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Button from '@material-ui/core/Button';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
+import PersonOutlineRoundedIcon from '@material-ui/icons/PersonOutlineRounded';
 import MailIcon from '@material-ui/icons/Mail';
+import StarRateIcon from '@material-ui/icons/StarRate';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import ListItemText from '@material-ui/core/ListItemText';
+import { Route, NavLink, Switch } from 'react-router-dom';
+import About from '../About/About'
+import Product from '../Product/Product'
+import Rating from '../Rating/Rating'
+import SettingsIcon from '@material-ui/icons/Settings';
 
-const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,18 +37,32 @@ const useStyles = makeStyles((theme) => ({
     alignItems:"center",
   },
   drawer: {
-    width: drawerWidth,
+    width: "30vw",
     flexShrink: 0,
   },
   drawerPaper: {
-    width: drawerWidth,
+    width: "30vw",
   },
   drawerContainer: {
     overflow: 'auto',
-    paddingTop:"10vh",
+    paddingTop:"14vh",
+    [theme.breakpoints.up('md')]: {
+      paddingTop:"10vh",
+    }
   },
-  drawerMain: {
-      paddingTop: "10vh"
+  drawerMain: { 
+    paddingTop:"14vh",
+    [theme.breakpoints.up('md')]: {
+      paddingTop:"10vh",
+    }
+  },
+  RightNav: {
+    display: "flex",
+    marginTop:"3vh",
+    flexDirection:"column",
+    [theme.breakpoints.up('md')]: {
+      flexDirection:"row",
+    }
   }
 }));
 
@@ -55,7 +74,7 @@ export default function ClippedDrawer() {
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <div>
-            <h1>LOGO</h1>
+            <h1> PRETVA LOGO</h1>
         </div>
         <div className={styles.navigation}>
             <ul>
@@ -65,11 +84,11 @@ export default function ClippedDrawer() {
                 <li><a href="#"><i class="fa fa-rss"></i> <span>FeedBack &amp; Support</span></a></li>
             </ul>
         </div>
-        <div>
-            <NotificationsIcon />
-            <Button variant="outlined">My Account</Button>
+        <div className={classes.RightNav}>
+            <NotificationsIcon fontSize="large" />
+            <Button variant="outlined" style={{marginBottom:"3vw"}}>My Account</Button>
 
-            <Button variant="container " style={{color:"white" ,marginLeft:"1vw", backgroundColor:"black"}}>LogOut</Button>
+            <Button variant="container " style={{color:"white" ,margin:"0vw 0vw 3vw 1vw", backgroundColor:"black"}}>LogOut</Button>
         </div>
       </AppBar>
       <Drawer
@@ -81,17 +100,80 @@ export default function ClippedDrawer() {
       >
         <Toolbar />
         <div className={classes.drawerContainer}>
-          
-          <Divider />
-          <List>
-            
+          <div style={{marginLeft:"1vw" , textAlign:"center"}}>
+            <PersonOutlineRoundedIcon style={{fontSize:"150px" , color:"#000000"}} />
+            <h1><strong>Rohit Gupta</strong></h1>
+            <p style={{marginBottom:"4vh", marginTop:"0vh" }}>Supplier, Sahara Fabrics Pvt. Ltd.</p>
+            <p style={{marginBottom:"4vh"}}>Company GSTIN - 123456789012345</p>
+          </div>
+          <List component="nav" style={{marginLeft:"4vw"}}>
+            <ListItem>
+              <LocationOnIcon />
+              <ListItemText primary="New Delhi , India" />
+            </ListItem>
+            <ListItem>
+              <StarRateIcon style={{color:"#ffef00"}} />
+              <ListItemText primary="4.5 (209)" />
+            </ListItem>
+            <ListItem>
+              <MailIcon />
+              <ListItemText primary="rohit.gupta@gmail.com" />
+            </ListItem>
           </List>
+          <div>
+            <Divider />
+            <p style={{marginLeft:"5vw"}} >Company Profile</p>
+            <Divider />
+            <p style={{marginLeft:"5vw"}} >Deal Requests & Wishlists</p>
+            <Divider />
+            <p style={{marginLeft:"5vw"}} >Clients & Payments</p>
+            <Divider />
+            <Divider />
+            <p style={{marginLeft:"5vw"}} >Chat history</p>
+            <Divider />
+            <Divider />
+          </div>
+          <div style={{backgroundColor:"lightblue", textAlign:"center", height:"8vh" }}>
+            <hr/>
+              <h2><SettingsIcon/><strong>Edit Profile</strong></h2>
+            <hr/>
+          </div>
+          <div style={{backgroundColor:"#fff44f", textAlign:"center", height:"6vh" }}>
+            <hr/>
+              <p>Wish to buy products?<u style={{color:"blue"}}>Click Here</u></p>
+            <hr/>
+          </div>
         </div>
       </Drawer>
       <main className={classes.drawerMain}>
         <Toolbar />
-        <h1>Main Content</h1>
-      </main>
+        <AppBar position="static" style={{backgroundColor:"#ffffff", color:"black" , boxShadow:"none" }}>
+          <div className={styles.navigation}>
+              <ul>
+                  <li><NavLink
+                      to="/about/"
+                      exact
+                      activeStyle={{color:"#e74c3c"}}
+                      >About the Company</NavLink></li>
+                  <li><NavLink
+                      to="/product/"
+                      exact
+                      activeStyle={{color:"#e74c3c"}}
+                      >Product Gallery</NavLink></li>
+                  <li><NavLink
+                      to="/rating/"
+                      exact
+                      activeStyle={{color:"#e74c3c"}}
+                      >Rating &amp; Reviews</NavLink></li>
+              </ul>
+          </div>
+      </AppBar>
+      <Switch>
+        <Route path="/about" component={About} />
+        <Route path="/product" component={Product} />
+        <Route path="/rating" component={Rating} />
+      </Switch>
+      </main>      
     </div>
   );
 }

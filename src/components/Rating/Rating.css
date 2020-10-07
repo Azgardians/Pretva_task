@@ -1,0 +1,12 @@
+.rating{
+    display: flex;
+    position: relative;
+    width: 40vw;
+    margin: 2vw 0vw 0vw 15vw;
+    font-size: large;
+    flex-direction: column;
+}
+
+.rating p{
+    margin-bottom: 2vh;
+}
